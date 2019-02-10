@@ -1,0 +1,1 @@
+p Dir.glob('/home/**/*').select { |file| file =~ /(jpeg|jpg|png)$/i }

@@ -1,24 +1,30 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    mustermann (1.0.2)
+    awesome_print (1.8.0)
+    levenshtein (0.2.2)
+    mini_magick (4.9.2)
+    mustermann (1.0.3)
     phashion (1.2.0)
-    rack (2.0.5)
-    rack-protection (2.0.3)
+    rack (2.0.6)
+    rack-protection (2.0.5)
       rack
-    sinatra (2.0.3)
+    sinatra (2.0.5)
       mustermann (~> 1.0)
       rack (~> 2.0)
-      rack-protection (= 2.0.3)
+      rack-protection (= 2.0.5)
       tilt (~> 2.0)
-    tilt (2.0.8)
+    tilt (2.0.9)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print
+  levenshtein
+  mini_magick
   phashion
   sinatra
 
 BUNDLED WITH
-   1.16.1
+   1.16.6
