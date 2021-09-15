@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+# Comparing two images. Returns true or false
+# Example of using:
+# bin/dup 'file1.jpg' 'file2.jpg'
+
+require './lib/dup'
+
+Dup.duplicate?(ARGV[0], ARGV[1])

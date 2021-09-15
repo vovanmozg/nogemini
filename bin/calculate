@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+# Calculates phash for input files and cache result to _info.txt in the
+# directory where the files placed.
+# Using example
+# ruby calculate-phash.rb /path/to/images
+
+require './config/logger'
+require './lib/image_iterator'
+require './lib/ngphash'
+
+path = ARGV[0] || raise('Invalid directory')
+
+ii = ImageIterator.new(path, subdirectories: true)
+ii.each_file do |file|
+  debug(file)
+  NGPHash.calculate(file)
+end

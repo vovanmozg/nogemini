@@ -3,7 +3,8 @@
 require 'phashion'
 require "mini_magick"
 require 'awesome_print'
-require './src/shash'
+require './lib/image_iterator'
+require './lib/shash'
 
 DB = './data.pstore'
 
@@ -28,15 +29,16 @@ class Kuku
 	end
 
 	def read_all(path)
-		files = Dir.glob("#{path}/*").select { |file| file =~ /(jpeg|jpg|png)$/i }
+		ii = ImageIterator.new(path)
+		#files = Dir.glob("#{path}/*").select { |file| file =~ /(jpeg|jpg|png)$/i }
 
 
 		#ps = PStore.new("data.pstore")
 
-		sh = SHash.new(DB)
+		sh = {} #SHash.new(DB)
 		h = sh.to_h
 
-		files.each do |file|
+		ii.each_file do |file|
 			print '.'
 			afile = File.absolute_path(file)
 			
@@ -63,6 +65,7 @@ class Kuku
 	def run
 		path='./files'
 		path='/home/**/*'
+		path = '/Users/vovanmozg/Downloads/nogemini/test/1'
 
 		read_all(path)
 		return

@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+# Gets hamming distance between two images. Returns integer positive val
+# Example of using:
+# bin/distance 'file1.jpg' 'file2.jpg'
+
+# Examples of outputs
+# Variation	Hamming distance
+# JPG to PNG	0
+# Lossy JPG (Photoshop Save for Web quality = 20)	0
+# Thumbnail (from 500px to 100px)	2
+# Color correction (saturation +20 w auto-correct)	2
+# Black and white	2
+# Extraneous whitespace cropped (500x349 to 466x312)	12
+# A sloppy rotation of 5 degrees clockwise	14
+# Horizontally-flipped	32
+## Additional info: https://github.com/westonplatter/phashion
+
+require './lib/dup'
+
+Dup.distance(ARGV[0], ARGV[1])
