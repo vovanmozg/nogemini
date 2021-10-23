@@ -1,7 +1,7 @@
 # Calculates phash for input files and cache result to _info.txt in the
 # directory where the files placed.
 # Using example
-# ruby calculate-phash.rb /path/to/images
+# ruby examples/find-similar /path/to/images /path/to/output.file
 
 require './src/config/initialize'
 require './src/lib/image_iterator'
@@ -16,12 +16,6 @@ path = ARGV[0] || raise('Invaid directory')
 output = ARGV[1] || raise('Invaid output file')
 
 
-# source - ImageInfoCache
-# output - redis
-
-
-
-# Iterate files without needing preindexing
 ii = ImageIterator.new(path, subdirectories: true)
 reader = Readers::CachingDecorator.new(
   Readers::Chain.new([

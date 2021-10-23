@@ -2,12 +2,16 @@ require './src/lib/ngphash'
 
 class PHashComparator
   def self.cmp(f1, f2)
+
+    p '--------------'
+    p f1['phash']
+    p f2['phash']
     distance = NGPHash.distance(
-      NGPHash.calculate(f1),
-      NGPHash.calculate(f2)
+      f1['phash'],
+      f2['phash']
     )
     {
-      result: distance == 2,
+      similar: distance == 2,
       distance: distance
     }
   end

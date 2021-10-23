@@ -25,11 +25,11 @@ class ImageInfoCache
   end
 
   def read(key = nil)
-    @cache_provider.read(key)
+    @cache_provider.read(prefixed_key(key))
   end
 
   def write(key = nil, record = {})
-    @cache_provider.write(key, record)
+    @cache_provider.write(prefixed_key(key), record)
     # return
     # Rewrite existing data
     # data = @cache_provider.read
@@ -38,6 +38,10 @@ class ImageInfoCache
   end
 
   private
+
+  def prefixed_key(key)
+    "iic:#{key}"
+  end
 
   # Returns data as Hash
   # def read_data

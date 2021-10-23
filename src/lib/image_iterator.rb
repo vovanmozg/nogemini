@@ -26,17 +26,19 @@ class ImageIterator
   # 2, 3
   # 2, 4
   # 3, 4
-  def each_pair(strategy = nil, action = nil, &block)
+  def each_pair(reader = nil, strategy = nil, action = nil, &block)
     combinations = @files.combination(2)
     bar = ProgressBar.create(total: combinations.size)
-    combinations.each do |f1, f2|
+    combinations.each do |fname1, fname2|
       bar.increment
-      if strategy && action
+      if reader && strategy && action
+        f1 = reader.read(fname1)
+        f2 = reader.read(fname2)
 
         compare_result = strategy.cmp(f1, f2)
         action.run(f1, f2, compare_result)
       else
-        yield f1, f2
+        yield fname1, fname2
       end
     end
   end

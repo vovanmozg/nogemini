@@ -6,9 +6,13 @@ module Actions
 
     def run(f1, f2, compare_result)
       # debug(compare_result)
+      #puts f1
+      key = [f1['fname'], f2['fname']].sort.join.to_json
+      write(key, compare_result)
+    end
 
-      key = [f1, f2].sort.join.to_json
-      REDIS.write(key, compare_result)
+    def write(key, value)
+      REDIS.write("compare_result:#{key}", value)
     end
   end
 end

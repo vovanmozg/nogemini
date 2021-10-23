@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# TODO: remove. Use bin/index instead
+
 # Calculates phash for input files and cache result to _info.txt in the
 # directory where the files placed.
 # Using example

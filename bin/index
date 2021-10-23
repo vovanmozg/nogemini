@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+# Index directory with photos
+# Using:
+# bin/index /path/to/images
+require './src/index'
