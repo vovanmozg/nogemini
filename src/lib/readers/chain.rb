@@ -6,7 +6,8 @@ module Readers
 
     def read(fname)
       @readers.reduce({}) do |props, reader|
-        props.merge(reader.read(fname))
+        data = reader.read(fname) || {}
+        props.merge(data)
       end
     end
   end
