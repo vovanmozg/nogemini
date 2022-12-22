@@ -17,8 +17,11 @@ module Readers
     end
 
     def read(fname)
-      # cache_provider = CacheProviders::Files.new(fname)
-      cache_provider = REDIS
+      if ENV['CACHE_PROVIDER'] == 'redis'
+        cache_provider = REDIS
+      else
+        cache_provider = CacheProviders::Files.new(fname)
+      end
 
       iic = ImageInfoCache.new(cache_provider)
       data = iic.read(fname)

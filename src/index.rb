@@ -20,8 +20,8 @@ path = ARGV[0] || raise('Invalid directory')
 reader = Readers::CachingDecorator.new(
   Readers::Chain.new(
     [
-      Readers::PHash.new,
-      Readers::ImageProps.new
+      Readers::ImageProps.new,
+      Readers::PHash.new
     ]
   )
 )
