@@ -17,7 +17,19 @@ module CacheProviders
       data = as_hash(read_lines)
       data[base_name] = record
       write_lines(
-        data.map { |name, record| "#{name}\t#{record.to_json}" }
+        data.map { |name, record|
+          record.each do |k, v|
+            # Cleanup bad attribute
+            # `to_json': partial character in source, but hit end (JSON::GeneratorError)
+            begin
+              v.to_json
+            rescue JSON::GeneratorError => error
+              warn("#{name}: #{error}")
+              record[k] = ''
+            end
+          end
+          "#{name}\t#{record.to_json}"
+        }
       )
     end
 
