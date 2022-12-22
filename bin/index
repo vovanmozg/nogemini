@@ -2,5 +2,6 @@
 
 # Index directory with photos
 # Using:
-# bin/index /path/to/images
+#  bin/index /path/to/images
+#  LOG_OUT=STDOUT LOG_LEVEL=debug bin/index /data/pictures
 require './src/index'
