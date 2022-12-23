@@ -13,3 +13,5 @@ gem "progressbar", "~> 1.11"
 gem "pry-byebug", "~> 3.9"
 
 gem "redis", "~> 4.4"
+
+gem "colored", "~> 1.2"
