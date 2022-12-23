@@ -44,6 +44,7 @@ module CacheProviders
 
     def read_lines
       return [] if !File.exist?(info_file)
+
       IO.readlines(info_file).map(&:chomp)
     end
 

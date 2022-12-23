@@ -27,8 +27,11 @@ reader = Readers::CachingDecorator.new(
 )
 
 # TODO: Add program argument for subdirectories
+
+#ii = CachingIterator.new(ImageIterator.new(path, subdirectories: true))
 ii = ImageIterator.new(path, subdirectories: true)
 
+debug('================= START =================='.red)
 ii.each_file do |file_name|
   debug(file_name)
   reader.read(file_name)

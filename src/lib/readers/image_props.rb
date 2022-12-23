@@ -3,10 +3,17 @@ require './src/lib/image_reader'
 module Readers
   class ImageProps
     def read(fname)
-      ImageReader.read(fname).merge('fname' => fname)
+      data = ImageReader.read(fname).merge('fname' => fname)
+      remove_useless_attributes(data)
     rescue MiniMagick::Error, MiniMagick::Invalid => error
       debug("#{fname}: #{error}")
       nil
+    end
+
+    def remove_useless_attributes(data)
+      data['properties'].delete('exif:MakerNote')
+      data['properties'].delete('exif:PrintImageMatching')
+      data
     end
   end
 end

@@ -14,20 +14,31 @@ module Readers
   class CachingDecorator
     def initialize(reader)
       @reader = reader
+      @info_cacher = {}
     end
 
     def read(fname)
+      debug("!!! Start reading #{fname}")
+
       if ENV['CACHE_PROVIDER'] == 'redis'
         cache_provider = REDIS
       else
-        cache_provider = CacheProviders::Files.new(fname)
+        cache_provider = CacheProviders::Files2.new(@info_cacher)
       end
 
       iic = ImageInfoCache.new(cache_provider)
+
       data = iic.read(fname)
+      if data
+        debug("#{data.to_json.size} bytes of data readed from cache successfully".green)
+        debug("phash=#{data['phash']}")
+      end
       return data if data
 
+      debug('Read data from picture')
       data = @reader.read(fname)
+
+      debug("Write #{data.to_s.size} bytes of data to cache")
       iic.write(fname, data)
       data
     end
