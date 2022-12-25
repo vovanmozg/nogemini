@@ -29,6 +29,7 @@ module CacheProviders
       @path = path
       debug("Write data to #{info_file}. size: #{record.to_s.size}")
       data = info_hash
+      data = Marshal.load(Marshal.dump(data))
       cleanup(record)
       data[base_name] = record
 
