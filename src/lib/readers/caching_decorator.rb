@@ -18,7 +18,7 @@ module Readers
     end
 
     def read(fname)
-      debug("!!! Start reading #{fname}")
+      debug("CachingDecorator#read(#{fname})".green)
 
       if ENV['CACHE_PROVIDER'] == 'redis'
         cache_provider = REDIS
@@ -30,15 +30,15 @@ module Readers
 
       data = iic.read(fname)
       if data
-        debug("#{data.to_json.size} bytes of data readed from cache successfully".green)
+        #debug("#{data.to_json.size} bytes of data readed from cache successfully".green)
         debug("phash=#{data['phash']}")
       end
       return data if data
 
-      debug('Read data from picture')
+      debug('Data missing in cache. Read data from picture')
       data = @reader.read(fname)
 
-      debug("Write #{data.to_s.size} bytes of data to cache")
+      #debug("Write #{data.to_s.size} bytes of data to cache")
       iic.write(fname, data)
       data
     end

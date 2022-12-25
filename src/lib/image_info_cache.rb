@@ -25,10 +25,12 @@ class ImageInfoCache
   end
 
   def read(key = nil)
+    debug("ImageInfoCache#read(#{key})".green)
     @cache_provider.read(key)
   end
 
   def write(key = nil, record = {})
+    debug("ImageInfoCache#write(#{key}, size: #{record.to_s.size})".green)
     @cache_provider.write(key, record)
     # return
     # Rewrite existing data

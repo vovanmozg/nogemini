@@ -33,6 +33,9 @@ ii = ImageIterator.new(path, subdirectories: true)
 
 debug('================= START =================='.red)
 ii.each_file do |file_name|
-  info(file_name)
+  info(file_name.red)
   reader.read(file_name)
 end
+
+debug('waiting threads...')
+CacheProviders::Files2::InfoFileAccessor.threads.each { |thr| thr.join }

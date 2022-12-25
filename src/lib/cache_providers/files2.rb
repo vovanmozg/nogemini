@@ -1,5 +1,6 @@
-require 'json'
-require 'pry-byebug'
+# frozen_string_literal: true
+
+require './src/lib/cache_providers/files2/info_file_accessor'
 
 module CacheProviders
   class Files2
@@ -12,20 +13,27 @@ module CacheProviders
 
     # Returns data as Hash
     def read(path)
+      debug("Files2#read(#{path})".green)
       @path = path
-      return unless File.exist?(info_file)
+      unless File.exist?(info_file)
+        debug("file #{info_file} missing")
+        write(path, {})
+        return
+      end
       # data = @info_cacher[info_file]
       info_hash[base_name]
     end
 
     def write(path, record)
+      debug("Files2#write(#{path})".green)
       @path = path
-      debug("Write data to #{info_file}")
+      debug("Write data to #{info_file}. size: #{record.to_s.size}")
       data = info_hash
       cleanup(record)
       data[base_name] = record
 
-      File.write(info_file, data.to_json)
+      #File.write(info_file, data.to_json)
+      InfoFileAccessor.write(info_file, data)
     end
 
     private
@@ -41,14 +49,10 @@ module CacheProviders
       end
     end
 
-    def base_name
-      @base_name ||= File.basename(@path)
-    end
-
     def info_hash
       return {} unless File.exist?(info_file)
 
-      JSON.parse(IO.read(info_file))
+      InfoFileAccessor.read(info_file)
     end
 
     def base_name
