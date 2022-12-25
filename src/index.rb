@@ -33,6 +33,6 @@ ii = ImageIterator.new(path, subdirectories: true)
 
 debug('================= START =================='.red)
 ii.each_file do |file_name|
-  debug(file_name)
+  info(file_name)
   reader.read(file_name)
 end

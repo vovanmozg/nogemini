@@ -10,6 +10,10 @@ def debug(msg)
   LOGGER.debug(msg)
 end
 
+def info(msg)
+  LOGGER.info(msg)
+end
+
 def warning(msg)
   LOGGER.warn(msg)
 end
