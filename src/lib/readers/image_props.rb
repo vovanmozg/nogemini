@@ -6,7 +6,7 @@ module Readers
       data = ImageReader.read(fname).merge('fname' => fname)
       remove_useless_attributes(data)
     rescue MiniMagick::Error, MiniMagick::Invalid => error
-      debug("#{fname}: #{error}")
+      error("#{fname}: #{error}")
       nil
     end
 
