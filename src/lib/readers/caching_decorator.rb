@@ -35,8 +35,9 @@ module Readers
       end
       return data if data
 
-      debug('Data missing in cache. Read data from picture')
+      debug('Data missing in cache. Read data from picture...')
       data = @reader.read(fname)
+      debug('Data readed')
 
       #debug("Write #{data.to_s.size} bytes of data to cache")
       iic.write(fname, data)
