@@ -3,10 +3,6 @@
 module CacheProviders
   class Files3
     class InfoFileAccessor
-      class << self
-        attr_accessor :threads
-      end
-
       @cache = {}
       @counter = 0
 
@@ -33,7 +29,7 @@ module CacheProviders
         @counter += 1
 
         bulk_size = 10
-        if @counter % bulk_size
+        if @counter % bulk_size == 0
           write_file(file_name, read_cache(file_name))
         end
       end
