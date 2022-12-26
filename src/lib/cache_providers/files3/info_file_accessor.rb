@@ -36,7 +36,7 @@ module CacheProviders
 
       def self.finish
         @cache.each do |file_name, data|
-          write_cache(file_name, data)
+          write_file(file_name, data)
         end
       end
 
