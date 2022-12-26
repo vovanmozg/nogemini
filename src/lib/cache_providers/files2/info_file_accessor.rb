@@ -36,18 +36,20 @@ module CacheProviders
 
         @counter += 1
 
-        @threads << Thread.new do
+        thread = Thread.new do
           sleep(15)
 
           new_crc = Zlib::crc32(read_cache(file_name).to_s)
           if @last_writed_crc == new_crc
             debug("[#{Thread.current.object_id}] Skip writing because crc not modified".blue)
+            @threads.delete(Thread.current.object_id)
             Thread.exit()
           end
           @last_writed_crc = new_crc
 
           write_file(file_name, read_cache(file_name))
         end
+        @threads[thread.object_id] == thread
       end
 
       def self.init_cache(file_name, data)
