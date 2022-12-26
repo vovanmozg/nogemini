@@ -23,7 +23,7 @@ module Readers
       if ENV['CACHE_PROVIDER'] == 'redis'
         cache_provider = REDIS
       else
-        cache_provider = CacheProviders::Files2.new(@info_cacher)
+        cache_provider = CacheProviders::Files3.new(@info_cacher)
       end
 
       iic = ImageInfoCache.new(cache_provider)

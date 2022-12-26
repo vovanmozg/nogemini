@@ -37,5 +37,8 @@ ii.each_file do |file_name|
   reader.read(file_name)
 end
 
-debug('waiting threads...')
-CacheProviders::Files2::InfoFileAccessor.threads.each { |thr| thr.join }
+# If you use Files2 you should join processes
+# debug('waiting threads...')
+# CacheProviders::Files2::InfoFileAccessor.threads.each { |thr| thr.join }
+
+CacheProviders::Files3::InfoFileAccessor.finish
