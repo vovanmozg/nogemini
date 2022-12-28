@@ -3,7 +3,7 @@
 require 'fileutils'
 
 class Reorganizer
-  def call(file, mode: :bash)
+  def call(file: nil, destination: nil, mode: :bash)
     dups = JSON.parse(File.read(file))
 
     moved = {}
