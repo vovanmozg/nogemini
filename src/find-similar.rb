@@ -1,3 +1,5 @@
+# OBSOLETE
+
 # Calculates phash for input files and cache result to _info.txt in the
 # directory where the files placed.
 # Using example
