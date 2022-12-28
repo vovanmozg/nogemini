@@ -62,9 +62,9 @@ def main(options)
   ii_old = MetaFileIterator.new(paths_old, subdirectories: true)
   ii_new = MetaFileIterator.new(paths_new, subdirectories: true)
   ii_old.preheat
-  info("Prehead for old dir finished")
+  info("Preheat for old dir finished")
   ii_new.preheat
-  info("Prehead for new dir finished")
+  info("Preheat for new dir finished")
 
   comparator = PHashComparator
 
