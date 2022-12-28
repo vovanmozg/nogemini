@@ -92,11 +92,11 @@ class DupsFinder
     print "\n"
 
     if path_dups_from_old
-      File.write(File.join(path_dups_from_old, 'dups.json'), JSON.pretty_generate(dups[:from_old]))
+      File.write(File.join(path_dups_from_old, 'dups-from-old.json'), JSON.pretty_generate(dups[:from_old]))
     end
 
     if path_dups_from_new
-      File.write(File.join(path_dups_from_new, 'dups.json'), JSON.pretty_generate(dups[:from_new]))
+      File.write(File.join(path_dups_from_new, 'dups-from-new.json'), JSON.pretty_generate(dups[:from_new]))
     end
 
     # info("compares: #{compares} in #{Time.new.to_f - start} s")
