@@ -86,21 +86,21 @@ def main(options)
         dup_data = {}
         # Если размер нового файла больше, чем старого, значит нужно
         # будет заменить старый файл новым
-        if File.size(data_new['fname']) > File.size(data_old['fname'])
-          dup_data[:original] = data_new['fname']
-          dup_data[:copy] = data_old['fname']
+        if File.size(file_new_path) > File.size(file_old_path)
+          dup_data[:original] = file_new_path
+          dup_data[:copy] = file_old_path
           dup_data[:original_source] = :new
           dup_data[:destination] = File.join(
             path_dups_from_old,
-            File.basename(data_old['fname'])
+            File.basename(file_old_path)
           )
         else
-          dup_data[:original] = data_old['fname']
-          dup_data[:copy] = data_new['fname']
+          dup_data[:original] = file_old_path
+          dup_data[:copy] = file_new_path
           dup_data[:original_source] = :old
           dup_data[:destination] = File.join(
             path_dups_from_new,
-            File.basename(data_new['fname'])
+            File.basename(file_new_path)
           )
         end
 
