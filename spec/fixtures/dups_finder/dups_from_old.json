@@ -1,0 +1,14 @@
+[
+  {
+    "original": "./spec/fixtures/dups_finder/new/new1.jpg",
+    "copy": "./spec/fixtures/dups_finder/old/old1.jpg",
+    "original_source": "new",
+    "destination": "./spec/tmp/old1.jpg"
+  },
+  {
+    "original": "./spec/fixtures/dups_finder/new/new2.jpg",
+    "copy": "./spec/fixtures/dups_finder/old/old1.jpg",
+    "original_source": "new",
+    "destination": "./spec/tmp/old1.jpg"
+  }
+]
