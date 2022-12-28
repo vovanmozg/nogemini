@@ -3,9 +3,11 @@ require './src/lib/ngphash'
 class PHashComparator
   def self.cmp(f1, f2)
 
-    p '--------------'
-    p f1['phash']
-    p f2['phash']
+    raise StandardError if f1['phash'].nil?
+    raise StandardError if f2['phash'].nil?
+
+    #p "#{f1['phash']} #{f2['phash']}"
+
     distance = NGPHash.distance(
       f1['phash'],
       f2['phash']
