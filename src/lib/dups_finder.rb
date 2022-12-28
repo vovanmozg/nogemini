@@ -56,8 +56,8 @@ class DupsFinder
           dup_data = {}
 
           if options[:priority] != 'new' && options[:priority] != 'old'
-            # Если размер нового файла больше, чем старого, значит нужно
-            # будет заменить старый файл новым
+            # Если размер нового файла больше, чем старого, значит
+            # дубликатом нужно считать старый файл
             if File.size(file_new_path) > File.size(file_old_path)
               options[:priority] = 'new'
             else
@@ -68,18 +68,12 @@ class DupsFinder
             dup_data[:original] = file_new_path
             dup_data[:copy] = file_old_path
             dup_data[:original_source] = :new
-            dup_data[:destination] = File.join(
-              path_dups_from_old,
-              File.basename(file_old_path)
-            )
+            dup_data[:destination] = file_old_path.gsub(data_old['root_path'], path_dups_from_old)
           elsif options[:priority] == 'old'
             dup_data[:original] = file_old_path
             dup_data[:copy] = file_new_path
             dup_data[:original_source] = :old
-            dup_data[:destination] = File.join(
-              path_dups_from_new,
-              File.basename(file_new_path)
-            )
+            dup_data[:destination] = file_new_path.gsub(data_new['root_path'], path_dups_from_new)
           end
 
           add_dup(dup_data, dups)
