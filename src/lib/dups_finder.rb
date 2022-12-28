@@ -33,35 +33,40 @@ class DupsFinder
       ii_old.each_file do |file_old_path, data_old|
         next if file_new_path == file_old_path
 
-        # If path_old and path_new are the same then we should not compare again
-        check_repeats_key = [file_new_path, file_old_path].sort
-        next if cmps.has_key?(check_repeats_key)
-        cmps[check_repeats_key] = true
-
-        unless File.exist?(file_old_path)
-          missing_files += 1
-          next
-        end
-
-        unless File.exist?(file_new_path)
-          missing_files += 1
-          next
-        end
-
         phash_old = data_old['phash']
         phash_new = data_new['phash']
         next unless validate_phash(phash_old, phash_new)
 
         if is_phash_similar(data_old, data_new, comparator)
+          # If path_old and path_new are the same then we should not compare again
+          check_repeats_key = file_new_path + file_old_path
+          next if cmps[check_repeats_key]
+          cmps[check_repeats_key] = true
+          cmps[file_old_path + file_new_path] = true
+
           dup_data = {}
 
           if options[:priority] != 'new' && options[:priority] != 'old'
-            # Если размер нового файла больше, чем старого, значит
-            # дубликатом нужно считать старый файл
-            if File.size(file_new_path) > File.size(file_old_path)
-              options[:priority] = 'new'
-            else
-              options[:priority] = 'old'
+            begin
+              # unless File.exist?(file_old_path)
+              #   missing_files += 1
+              #   next
+              # end
+              #
+              # unless File.exist?(file_new_path)
+              #   missing_files += 1
+              #   next
+              # end
+
+              # Если размер нового файла больше, чем старого, значит
+              # дубликатом нужно считать старый файл
+              if File.size(file_new_path) > File.size(file_old_path)
+                options[:priority] = 'new'
+              else
+                options[:priority] = 'old'
+              end
+            rescue Errno::ENOENT => e
+              next
             end
           end
           if options[:priority] == 'new'
