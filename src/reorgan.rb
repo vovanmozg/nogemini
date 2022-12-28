@@ -16,5 +16,5 @@ end.parse!
 
 options[:file].nil? && raise('Invalid file')
 
-stat = Reorganizer.new.call(options[:file])
+stat = Reorganizer.new.call(options[:file], mode: :bash)
 info(stat)
