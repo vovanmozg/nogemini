@@ -1,10 +1,12 @@
 require 'progressbar'
 
 class MetaFileIterator
-  def initialize(path, subdirectories: false)
-    @path = path
-    glob_path = subdirectories ? "#{path}/**/_info.json" : "#{path}/_info.json"
-    @info_files = Dir.glob(glob_path)
+  def initialize(paths, subdirectories: false)
+    @info_files = []
+    paths.each do |path|
+      glob_path = subdirectories ? "#{path}/**/_info.json" : "#{path}/_info.json"
+      @info_files += Dir.glob(glob_path)
+    end
   end
 
   def preheat
