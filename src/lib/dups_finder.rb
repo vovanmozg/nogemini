@@ -46,7 +46,8 @@ class DupsFinder
 
           dup_data = {}
 
-          if options[:priority] != 'new' && options[:priority] != 'old'
+          priority = options[:priority]
+          if priority != 'new' && priority != 'old'
             begin
               # unless File.exist?(file_old_path)
               #   missing_files += 1
@@ -61,22 +62,22 @@ class DupsFinder
               # Если размер нового файла больше, чем старого, значит
               # дубликатом нужно считать старый файл
               if is_new_bigger(data_old, data_new)
-                options[:priority] = 'new'
+                priority = 'new'
               else
-                options[:priority] = 'old'
+                priority = 'old'
               end
             rescue Errno::ENOENT => e
               next
             end
           end
-          if options[:priority] == 'new'
+          if priority == 'new'
             dup_data[:original] = file_new_path
             dup_data[:original_size] = "#{data_new['geometry']['width']}x#{data_new['geometry']['height']}"
             dup_data[:copy] = file_old_path
             dup_data[:copy_size] = "#{data_old['geometry']['width']}x#{data_old['geometry']['height']}"
             dup_data[:original_source] = :new
             dup_data[:destination] = file_old_path.gsub(data_old['root_path'], path_dups_from_old)
-          elsif options[:priority] == 'old'
+          elsif priority == 'old'
             dup_data[:original] = file_old_path
             dup_data[:original_size] = "#{data_old['geometry']['width']}x#{data_old['geometry']['height']}"
             dup_data[:copy] = file_new_path
@@ -136,8 +137,12 @@ class DupsFinder
   end
 
   def is_new_bigger(data_old, data_new)
-    data_new['geometry']['width'] > data_old['geometry']['width'] &&
+    res = data_new['geometry']['width'] > data_old['geometry']['width'] &&
       data_new['geometry']['height'] > data_old['geometry']['height']
     # File.size(file_new_path) > File.size(file_old_path)
+
+    # debug(%{#{res} is result of compare new(#{data_new['geometry']}) and old(new(#{data_old['geometry']}).red})
+
+    res
   end
 end
