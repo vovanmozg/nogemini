@@ -2,6 +2,9 @@
 
 require 'fileutils'
 
+# Input: json file with information about duplicates
+# Output: bash-file with move file commands
+
 class Reorganizer
   def call(file: nil, destination: nil, mode: :bash)
     dups = JSON.parse(File.read(file))

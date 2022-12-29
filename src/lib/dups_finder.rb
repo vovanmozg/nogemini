@@ -71,12 +71,16 @@ class DupsFinder
           end
           if options[:priority] == 'new'
             dup_data[:original] = file_new_path
+            dup_data[:original_size] = "#{data_new['geometry']['width']}x#{data_new['geometry']['height']}"
             dup_data[:copy] = file_old_path
+            dup_data[:copy_size] = "#{data_old['geometry']['width']}x#{data_old['geometry']['height']}"
             dup_data[:original_source] = :new
             dup_data[:destination] = file_old_path.gsub(data_old['root_path'], path_dups_from_old)
           elsif options[:priority] == 'old'
             dup_data[:original] = file_old_path
+            dup_data[:original_size] = "#{data_old['geometry']['width']}x#{data_old['geometry']['height']}"
             dup_data[:copy] = file_new_path
+            dup_data[:copy_size] = "#{data_new['geometry']['width']}x#{data_new['geometry']['height']}"
             dup_data[:original_source] = :old
             dup_data[:destination] = file_new_path.gsub(data_new['root_path'], path_dups_from_new)
           end
