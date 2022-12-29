@@ -21,6 +21,7 @@ class MetaFileIterator
         end
       end
     end
+    info("files in comparing set of dirs: #{@files.size}")
   end
 
   def each_file(&block)
