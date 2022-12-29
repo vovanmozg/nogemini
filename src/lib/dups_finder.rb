@@ -60,7 +60,7 @@ class DupsFinder
 
               # Если размер нового файла больше, чем старого, значит
               # дубликатом нужно считать старый файл
-              if File.size(file_new_path) > File.size(file_old_path)
+              if is_new_bigger(data_old, data_new)
                 options[:priority] = 'new'
               else
                 options[:priority] = 'old'
@@ -129,5 +129,11 @@ class DupsFinder
     if dup_data[:original_source] == :new
       dups[:from_old] << dup_data
     end
+  end
+
+  def is_new_bigger(data_old, data_new)
+    data_new['geometry']['width'] > data_old['geometry']['width'] &&
+      data_new['geometry']['height'] > data_old['geometry']['height']
+    # File.size(file_new_path) > File.size(file_old_path)
   end
 end

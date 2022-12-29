@@ -1,0 +1,8 @@
+[
+  {
+    "original": "./spec/fixtures/dups_finder/similar/big.jpg",
+    "copy": "./spec/fixtures/dups_finder/similar/small.jpg",
+    "original_source": "new",
+    "destination": "./spec/tmp/small.jpg"
+  }
+]
