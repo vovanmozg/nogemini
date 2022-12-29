@@ -1,13 +1,17 @@
 [
   {
     "original": "./spec/fixtures/dups_finder/old/old1.jpg",
+    "original_size": "257x196",
     "copy": "./spec/fixtures/dups_finder/new/subdir/new1.jpg",
+    "copy_size": "257x196",
     "original_source": "old",
     "destination": "./spec/tmp/subdir/new1.jpg"
   },
   {
     "original": "./spec/fixtures/dups_finder/old/old1.jpg",
+    "original_size": "257x196",
     "copy": "./spec/fixtures/dups_finder/new/subdir/new2.jpg",
+    "copy_size": "257x196",
     "original_source": "old",
     "destination": "./spec/tmp/subdir/new2.jpg"
   }

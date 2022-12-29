@@ -12,9 +12,9 @@ describe DupsFinder do
         path_dups_from_new: './spec/tmp',
         priority: 'old'
       )
-      content = File.read(File.join('./spec/tmp', 'dups.json'))
+      content = File.read(File.join('./spec/tmp', 'dups-from-new.json'))
     ensure
-      FileUtils.remove_entry('./spec/tmp/dups.json')
+      FileUtils.remove_entry('./spec/tmp/dups-from-new.json')
     end
     expected = IO.read('./spec/fixtures/dups_finder/dups_from_new.json')
     expect(content.strip).to eq(expected.strip)
@@ -28,9 +28,9 @@ describe DupsFinder do
         path_dups_from_old: './spec/tmp',
         priority: 'new'
       )
-      content = File.read(File.join('./spec/tmp', 'dups.json'))
+      content = File.read(File.join('./spec/tmp', 'dups-from-old.json'))
     ensure
-      FileUtils.remove_entry('./spec/tmp/dups.json')
+      FileUtils.remove_entry('./spec/tmp/dups-from-old.json')
     end
     expected = IO.read('./spec/fixtures/dups_finder/dups_from_old.json')
     expect(content.strip).to eq(expected.strip)

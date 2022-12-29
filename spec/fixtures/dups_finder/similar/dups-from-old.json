@@ -1,7 +1,9 @@
 [
   {
     "original": "./spec/fixtures/dups_finder/similar/big.jpg",
+    "original_size": "750x522",
     "copy": "./spec/fixtures/dups_finder/similar/small.jpg",
+    "copy_size": "400x278",
     "original_source": "new",
     "destination": "./spec/tmp/small.jpg"
   }
