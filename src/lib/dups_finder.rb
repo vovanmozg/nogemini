@@ -49,16 +49,6 @@ class DupsFinder
           priority = options[:priority]
           if priority != 'new' && priority != 'old'
             begin
-              # unless File.exist?(file_old_path)
-              #   missing_files += 1
-              #   next
-              # end
-              #
-              # unless File.exist?(file_new_path)
-              #   missing_files += 1
-              #   next
-              # end
-
               # Если размер нового файла больше, чем старого, значит
               # дубликатом нужно считать старый файл
               if is_new_bigger(data_old, data_new)
@@ -137,12 +127,29 @@ class DupsFinder
   end
 
   def is_new_bigger(data_old, data_new)
-    res = data_new['geometry']['width'] > data_old['geometry']['width'] &&
-      data_new['geometry']['height'] > data_old['geometry']['height']
-    # File.size(file_new_path) > File.size(file_old_path)
+    if !data_new.nil? &&
+      !data_new['geometry'].nil? &&
+      !data_new['geometry']['width'].nil? &&
+      !data_new['geometry']['height'].nil? &&
+      !data_old.nil? &&
+      !data_old['geometry'].nil? &&
+      !data_old['geometry']['width'].nil?
+      !data_old['geometry']['height'].nil?
+      data_new['geometry']['width'] > data_old['geometry']['width'] &&
+        data_new['geometry']['height'] > data_old['geometry']['height']
+    else
+      unless File.exist?(data_old['file_name'])
+        return true
+      end
+
+      unless File.exist?(data_new['file_name'])
+        return false
+      end
+
+      File.size(data_new['file_name']) > File.size(data_old['file_name'])
+    end
 
     # debug(%{#{res} is result of compare new(#{data_new['geometry']}) and old(new(#{data_old['geometry']}).red})
-
-    res
+    #
   end
 end
