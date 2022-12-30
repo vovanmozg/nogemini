@@ -62,16 +62,16 @@ class DupsFinder
           end
           if priority == 'new'
             dup_data[:original] = file_new_path
-            dup_data[:original_size] = "#{data_new['geometry']['width']}x#{data_new['geometry']['height']}"
+            dup_data[:original_size] = geometry(data_new)
             dup_data[:copy] = file_old_path
-            dup_data[:copy_size] = "#{data_old['geometry']['width']}x#{data_old['geometry']['height']}"
+            dup_data[:copy_size] = geometry(data_old)
             dup_data[:original_source] = :new
             dup_data[:destination] = file_old_path.gsub(data_old['root_path'], path_dups_from_old)
           elsif priority == 'old'
             dup_data[:original] = file_old_path
-            dup_data[:original_size] = "#{data_old['geometry']['width']}x#{data_old['geometry']['height']}"
+            dup_data[:original_size] = geometry(data_old)
             dup_data[:copy] = file_new_path
-            dup_data[:copy_size] = "#{data_new['geometry']['width']}x#{data_new['geometry']['height']}"
+            dup_data[:copy_size] = geometry(data_new)
             dup_data[:original_source] = :old
             dup_data[:destination] = file_new_path.gsub(data_new['root_path'], path_dups_from_new)
           end
@@ -127,14 +127,7 @@ class DupsFinder
   end
 
   def is_new_bigger(data_old, data_new)
-    if !data_new.nil? &&
-      !data_new['geometry'].nil? &&
-      !data_new['geometry']['width'].nil? &&
-      !data_new['geometry']['height'].nil? &&
-      !data_old.nil? &&
-      !data_old['geometry'].nil? &&
-      !data_old['geometry']['width'].nil?
-      !data_old['geometry']['height'].nil?
+    if has_geometry(data_old) && has_geometry(data_new)
       data_new['geometry']['width'] > data_old['geometry']['width'] &&
         data_new['geometry']['height'] > data_old['geometry']['height']
     else
@@ -151,5 +144,18 @@ class DupsFinder
 
     # debug(%{#{res} is result of compare new(#{data_new['geometry']}) and old(new(#{data_old['geometry']}).red})
     #
+  end
+
+  def has_geometry(data)
+    !data.nil? &&
+      !data['geometry'].nil? &&
+      !data['geometry']['width'].nil? &&
+      !data['geometry']['height'].nil?
+  end
+
+  def geometry(data)
+    return '' unless has_geometry(data)
+
+    "#{data['geometry']['width']}x#{data['geometry']['height']}"
   end
 end
